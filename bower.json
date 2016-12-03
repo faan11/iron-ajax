@@ -1,23 +1,23 @@
 {
-  "name": "iron-ajax",
-  "version": "1.4.3",
-  "description": "Makes it easy to make ajax calls and parse the response",
-  "private": true,
+  "name": "paper-download",
+  "version": "1.0.0",
+  "description": "Do something useless with the help of a button.",
   "authors": [
-    "The Polymer Authors"
+    "The Polymer Authors",
+    "Fabio Pagnotta"
   ],
   "keywords": [
     "web-components",
     "polymer",
-    "ajax"
+    "ajax",
+    "button"
   ],
-  "main": "iron-ajax.html",
+  "main": "paper-download.html",
   "repository": {
-    "type": "git",
-    "url": "git://github.com/PolymerElements/iron-ajax.git"
+    "type": "https",
+    "url": "https://github.com/faan11/paper-download.git"
   },
   "license": "http://polymer.github.io/LICENSE.txt",
-  "homepage": "https://github.com/PolymerElements/iron-ajax",
   "ignore": [],
   "dependencies": {
     "promise-polyfill": "polymerlabs/promise-polyfill#^1.0.0",
@@ -25,7 +25,8 @@
     "paper-dialog-scrollable": "PolymerElements/paper-dialog-scrollable#^1.1.5",
     "paper-dialog": "PolymerElements/paper-dialog#^1.1.0",
     "paper-spinner": "PolymerElements/paper-spinner#^1.2.1",
-    "paper-button": "PolymerElements/paper-button#^1.0.14"
+    "paper-button": "PolymerElements/paper-button#^1.0.14",
+    "app-layout": "PolymerElements/app-layout#^0.10.6"
   },
   "devDependencies": {
     "iron-component-page": "polymerelements/iron-component-page#^1.0.0",

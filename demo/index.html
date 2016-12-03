@@ -13,10 +13,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <title>iron-ajax</title>
 
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <link rel="import" href="../iron-ajax.html">
-  <link rel="import" href="../../iron-image/iron-image.html">
-  <link rel="import" href="../../paper-styles/demo-pages.html">
+  <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+  <link rel="import" href="../paper-download.html">
+  <link rel="import" href="../bower_components/iron-image/iron-image.html">
+  <link rel="import" href="../bower_components/paper-styles/demo-pages.html">
   <style>
     iron-image {
       background-color: lightgray;
@@ -32,11 +32,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <h1>Video Feed</h1>
   <div class="horizontal-section-container">
     <template is="dom-bind" id="app">
-      <iron-ajax auto
+       <!--<paper-download buttontext="premimi"></paper-download>-->
+
+       <paper-download buttontext="Press"
           url="https://www.googleapis.com/youtube/v3/search"
           params='{"part":"snippet", "q":"polymer", "key": "AIzaSyAuecFZ9xJXbGDkQYWBmYrtzOGJD-iDIgI", "type": "video"}'
           handle-as="json"
-          last-response="{{ajaxResponse}}"></iron-ajax>
+          last-response="{{ajaxResponse}}"></paper-download>
 
         <template is="dom-repeat" items="[[ajaxResponse.items]]">
           <div class="horizontal-section">
@@ -45,6 +47,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <p>[[item.snippet.description]]</p>
           </div>
         </template>
+      
 
     </template>
   </div>
