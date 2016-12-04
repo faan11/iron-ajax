@@ -8,16 +8,15 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 
-<link rel="import" href="bower_components/polymer/polymer.html">
+<link rel="import" href="../polymer/polymer.html">
 <link rel="import" href="iron-request.html">
 
-<link rel="import" href="bower_components/paper-spinner/paper-spinner.html">
-<link rel="import" href="bower_components/paper-button/paper-button.html">
-<link rel="import" href="bower_components/paper-dialog/paper-dialog.html">
-<link rel="import" href="bower_components/paper-dialog-scrollable/paper-dialog-scrollable.html">
-<link rel="import" href="bower_components/neon-animation/n/animations/fade-out-animation.html">
-<link rel="import" href="bower_components/neon-animation/n/animations/scale-up-animation.html">
-<!--
+<link rel="import" href="../paper-spinner/paper-spinner.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
+<link rel="import" href="../paper-dialog-scrollable/paper-dialog-scrollable.html">
+<link rel="import" href="../neon-animation/animations/fade-out-animation.html">
+<link rel="import" href="../neon-animation/animations/scale-up-animation.html"><!--
 The `paper-download` element exposes network request functionality.
 
     <paper-download
@@ -499,7 +498,7 @@ paper-dialog  {
      * @return {!IronRequestElement}
      */
     generateRequest: function() {
-      var request = /** @type {!IronRequestElement} */ (document.createElement('iron-request'));
+      var request = /** @type {!IronRequestElement} */ (document.createElement('paper-request'));
       var requestOptions = this.toRequestOptions();
 
       this.push('activeRequests', request);
