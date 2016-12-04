@@ -528,12 +528,14 @@ paper-dialog  {
 
       return request;
     },
+    /**
+    * Open popup if is loading.
+    */
     _changeLoading: function(){
       if (this.loading==true){
-        console.log("open");
         this.spinner_open();
       }else{
-        console.log("closed");
+
         this.spinner_close();
       }
     },
