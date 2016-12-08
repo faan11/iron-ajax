@@ -533,9 +533,16 @@ paper-dialog  {
     */
     _changeLoading: function(){
       if (this.loading==true){
+        Polymer.updateStyles({
+        '--iron-overlay-backdrop-background-color': '#e8e8e8',
+        '--iron-overlay-backdrop-opacity': '.6'
+        });
         this.spinner_open();
       }else{
-
+        Polymer.updateStyles({
+        '--iron-overlay-backdrop-background-color': '#000',
+        '--iron-overlay-backdrop-opacity': '.6'
+        });
         this.spinner_close();
       }
     },
@@ -599,9 +606,6 @@ paper-dialog  {
     },
 
   });
-  Polymer.updateStyles({
-  '--iron-overlay-backdrop-background-color': '#e8e8e8',
-  '--iron-overlay-backdrop-opacity': '.6'
-  });
+
 </script>
 </dom-module>
