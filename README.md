@@ -1,7 +1,7 @@
 
 
 
-##&lt;iron-ajax&gt;
+## iron-ajax;
 
 The `paper-download` element exposes network request functionality.
 
