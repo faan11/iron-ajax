@@ -9,14 +9,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="paper-request.html">
-
-<link rel="import" href="../paper-spinner/paper-spinner.html">
-<link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../paper-dialog/paper-dialog.html">
-<link rel="import" href="../paper-dialog-scrollable/paper-dialog-scrollable.html">
-<link rel="import" href="../neon-animation/animations/fade-out-animation.html">
-<link rel="import" href="../neon-animation/animations/scale-up-animation.html"><!--
+<!--<link rel="import" href="paper-request.html">-->
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+<link rel="import" href="../mha-dialog-loading/mha-dialog-loading.html">
+<!--
 The `paper-download` element exposes network request functionality.
 
     <paper-download
@@ -40,32 +36,10 @@ element.
 @demo demo/index.html
 @hero hero.svg
 -->
-<dom-module id="paper-download" >
+<dom-module id="iron-download" >
 <template>
 <style>
-:host{
-  paper-spinner.multi {
-    --paper-spinner-layer-1-color: rgb(0,225,187);
-    --paper-spinner-layer-2-color: orange;
-    --paper-spinner-layer-3-color: #4ae0ba;
-    --paper-spinner-layer-4-color: #bdbdbd;
-    --paper-spinner-stroke-width: 5px;
-  }
-}
-paper-dialog  {
-  position: fixed;
-  top: 45% !important;
-  left: 45% !important;
-  padding: 0;
-  margin: 0;
-  right: auto !important;
-  bottom: auto !important;
 
-}
-.core-overlay-backdrop {
-  /*background: rgba(0,0,0.15);*/
-  background-color:transparent;
-}
 </style>
 
 
@@ -74,12 +48,30 @@ paper-dialog  {
   <!--<app-drawer-layout force-narrow fullbleed>-->
 
 
-    <paper-dialog id="spinner"  style="background-color:transparent;box-shadow: none !important" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop   >
-      <div>
-        <paper-spinner active></paper-spinner>
-      </div>
-    </paper-dialog>
-    <paper-button id="ajax_button" on-tap="ajax_send"> {{buttontext}}</paper-button>
+    <mha-dialog-loading> </mha-dialog-loading>
+
+    <!--<paper-button id="ajax_button" on-tap="ajax_send"> {{buttontext}}</paper-button>-->
+    <iron-ajax
+    url="{{url}}"
+    params="{{url}}"
+    method="{{headers}}"
+    content-type="{{contentType}}"
+    body="{{body}}"
+    sync="{{sync}}"
+    handle-as="{{handleAs}}"
+    with-credentials="{{withCredentials}}"
+    timeout="{{timeout}}"
+    verbose="{{verbose}}"
+    last-request="{{lastRequest}}"
+    loading="{{loading}}"
+    last-response="{{lastResponse}}"
+    last-error="{{lastError}}"
+    active-requests="{{activeRequests}}"
+    debounce-duration="{{debounceDuration}}"
+    json-prefix="{{jsonPrefix}}"
+    bubbles="{{bubbles}}"
+    >
+    </iron-ajax>
 
   <!--</app-drawer-layout>-->
 
@@ -90,7 +82,7 @@ paper-dialog  {
 
   Polymer({
 
-    is: 'paper-download',
+    is: 'iron-download',
 
     /**
      * Fired when a request is sent.
@@ -118,12 +110,8 @@ paper-dialog  {
     },
 
     properties: {
-      /**
-      * Button text
-      */
-      buttontext:{
-        type:String
-      },
+
+
       /**
        * The URL target of the request.
        */
@@ -281,8 +269,7 @@ paper-dialog  {
       loading: {
         type: Boolean,
         notify: true,
-        readOnly: true,
-        observer: '_changeLoading'
+        readOnly: true
       },
 
       /**
@@ -363,109 +350,11 @@ paper-dialog  {
       bubbles: {
         type: Boolean,
         value: false
-      },
-
-      _boundHandleResponse: {
-        type: Function,
-        value: function() {
-          return this._handleResponse.bind(this);
-        }
       }
     },
 
-    observers: [
-      '_requestOptionsChanged(url, method, params.*, headers, contentType, ' +
-          'body, sync, handleAs, jsonPrefix, withCredentials, timeout)'
-    ],
 
-    /**
-     * The query string that should be appended to the `url`, serialized from
-     * the current value of `params`.
-     *
-     * @return {string}
-     */
-    get queryString () {
-      var queryParts = [];
-      var param;
-      var value;
 
-      for (param in this.params) {
-        value = this.params[param];
-        param = window.encodeURIComponent(param);
-
-        if (Array.isArray(value)) {
-          for (var i = 0; i < value.length; i++) {
-            queryParts.push(param + '=' + window.encodeURIComponent(value[i]));
-          }
-        } else if (value !== null) {
-          queryParts.push(param + '=' + window.encodeURIComponent(value));
-        } else {
-          queryParts.push(param);
-        }
-      }
-
-      return queryParts.join('&');
-    },
-
-    /**
-     * The `url` with query string (if `params` are specified), suitable for
-     * providing to an `iron-request` instance.
-     *
-     * @return {string}
-     */
-    get requestUrl() {
-      var queryString = this.queryString;
-      var url = this.url || '';
-
-      if (queryString) {
-        var bindingChar = url.indexOf('?') >= 0 ? '&' : '?';
-        return url + bindingChar + queryString;
-      }
-
-      return url;
-    },
-
-    /**
-     * An object that maps header names to header values, first applying the
-     * the value of `Content-Type` and then overlaying the headers specified
-     * in the `headers` property.
-     *
-     * @return {Object}
-     */
-    get requestHeaders() {
-      var headers = {};
-      var contentType = this.contentType;
-      if (contentType == null && (typeof this.body === 'string')) {
-        contentType = 'application/x-www-form-urlencoded';
-      }
-      if (contentType) {
-        headers['content-type'] = contentType;
-      }
-      var header;
-
-      if (this.headers instanceof Object) {
-        for (header in this.headers) {
-          headers[header] = this.headers[header].toString();
-        }
-      }
-
-      return headers;
-    },
-
-    /**
-     * Request options suitable for generating an `iron-request` instance based
-     * on the current state of the `paper-download` instance's properties.
-     *
-     * @return {{
-     *   url: string,
-     *   method: (string|undefined),
-     *   async: (boolean|undefined),
-     *   body: (ArrayBuffer|ArrayBufferView|Blob|Document|FormData|null|string|undefined|Object),
-     *   headers: (Object|undefined),
-     *   handleAs: (string|undefined),
-     *   jsonPrefix: (string|undefined),
-     *   withCredentials: (boolean|undefined)}}
-     */
      ajax_send: function(){
        this.generateRequest();
      },
@@ -478,56 +367,8 @@ paper-dialog  {
        this.$.spinner.close();
      },
 
-    toRequestOptions: function() {
-      return {
-        url: this.requestUrl || '',
-        method: this.method,
-        headers: this.requestHeaders,
-        body: this.body,
-        async: !this.sync,
-        handleAs: this.handleAs,
-        jsonPrefix: this.jsonPrefix,
-        withCredentials: this.withCredentials,
-        timeout: this.timeout
-      };
-    },
 
-    /**
-     * Performs an AJAX request to the specified URL.
-     *
-     * @return {!IronRequestElement}
-     */
-    generateRequest: function() {
-      var request = /** @type {!IronRequestElement} */ (document.createElement('paper-request'));
-      var requestOptions = this.toRequestOptions();
 
-      this.push('activeRequests', request);
-
-      request.completes.then(
-        this._boundHandleResponse
-      ).catch(
-        this._handleError.bind(this, request)
-      ).then(
-        this._discardRequest.bind(this, request)
-      );
-
-      request.send(requestOptions);
-
-      this._setLastRequest(request);
-      this._setLoading(true);
-
-      this.fire('request', {
-        request: request,
-        options: requestOptions
-      }, {bubbles: this.bubbles});
-
-      this.fire('paper-download-request', {
-        request: request,
-        options: requestOptions
-      }, {bubbles: this.bubbles});
-
-      return request;
-    },
     /**
     * Open popup if is loading.
     */
@@ -585,25 +426,7 @@ paper-dialog  {
       }, {bubbles: this.bubbles});
     },
 
-    _discardRequest: function(request) {
-      var requestIndex = this.activeRequests.indexOf(request);
 
-      if (requestIndex > -1) {
-        this.splice('activeRequests', requestIndex, 1);
-      }
-    },
-
-    _requestOptionsChanged: function() {
-      this.debounce('generate-request', function() {
-        if (this.url == null) {
-          return;
-        }
-
-        /*if (this.auto) {
-          this.generateRequest();
-        }*/
-      }, this.debounceDuration);
-    },
 
   });
 

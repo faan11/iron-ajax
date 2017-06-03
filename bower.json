@@ -1,5 +1,5 @@
 {
-  "name": "paper-download",
+  "name": "iron-download",
   "version": "2.0.7",
   "description": "Do something useless with the help of a button.",
   "authors": [
@@ -12,7 +12,7 @@
     "ajax",
     "button"
   ],
-  "main": "paper-download.html",
+  "main": "iron-download.html",
   "repository": {
     "type": "https",
     "url": "https://github.com/faan11/paper-download.git"
@@ -20,21 +20,8 @@
   "license": "http://polymer.github.io/LICENSE.txt",
   "ignore": [],
   "dependencies": {
-    "promise-polyfill": "polymerlabs/promise-polyfill#^1.0.0",
-    "polymer": "Polymer/polymer#^1.5.0",
-    "paper-dialog-scrollable": "PolymerElements/paper-dialog-scrollable#^1.1.5",
-    "paper-dialog": "PolymerElements/paper-dialog#^1.1.0",
-    "paper-spinner": "PolymerElements/paper-spinner#^1.2.1",
-    "paper-button": "PolymerElements/paper-button#^1.0.14",
-    "app-layout": "PolymerElements/app-layout#^0.10.6",
-    "neon-animation": "PolymerElements/neon-animation#^1.2.4"
-  },
-  "devDependencies": {
-    "iron-component-page": "polymerelements/iron-component-page#^1.0.0",
-    "iron-image": "polymerelements/iron-image#^1.0.0",
-    "paper-styles": "polymerelements/paper-styles#^1.0.0",
-    "test-fixture": "polymerelements/test-fixture#^1.0.0",
-    "web-component-tester": "^4.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+    "polymer": "Polymer/polymer",
+    "mha-dialog-loading": "PolymerElements/mha-dialog-loading",
+    "iron-ajax": "PolymerElements/iron-ajax"
   }
 }
