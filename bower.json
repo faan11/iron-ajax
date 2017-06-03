@@ -1,5 +1,5 @@
 {
-  "name": "iron-download",
+  "name": "paper-download",
   "version": "2.0.7",
   "description": "Do something useless with the help of a button.",
   "authors": [
@@ -12,7 +12,7 @@
     "ajax",
     "button"
   ],
-  "main": "iron-download.html",
+  "main": "paper-download.html",
   "repository": {
     "type": "https",
     "url": "https://github.com/faan11/paper-download.git"
@@ -21,7 +21,7 @@
   "ignore": [],
   "dependencies": {
     "polymer": "Polymer/polymer",
-    "mha-dialog-loading": "PolymerElements/mha-dialog-loading",
+    "mha-dialog-loading": "https://github.com/faan11/mha-dialog-loading.git",
     "iron-ajax": "PolymerElements/iron-ajax"
   }
 }

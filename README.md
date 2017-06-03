@@ -1,7 +1,7 @@
 
 
 
-## iron-ajax;
+## paper-download
 
 The `paper-download` element exposes network request functionality.
 
@@ -18,15 +18,3 @@ The `paper-download` element exposes network request functionality.
 
 You can trigger a request explicitly by calling `generateRequest` on the
 element.
-
-
-
-##&lt;iron-request&gt;
-
-iron-request can be used to perform XMLHttpRequests.
-
-```html
-<iron-request id="xhr"></iron-request>
-...
-this.$.xhr.send({url: url, body: params});
-```
